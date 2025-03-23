@@ -55,12 +55,12 @@ class PaymentsController extends Controller
             return redirect()->route('invoices.show', $invoice->external_id);
         }
 
-//        Afficher message d’erreur si paiement  est supérieur lors de la saisie d’un payment
-        $invoiceCalculator= new InvoiceCalculator($invoice);
-        if ($invoiceCalculator->getAmountDue()->getAmount() < $request->amount*Constante::MULTIPLY){
-            session()->flash('flash_message_warning', ('You don\'t have enough money for this payment'));
-            return redirect()->route('invoices.show', $invoice->external_id);
-        }
+// //        Afficher message d’erreur si paiement  est supérieur lors de la saisie d’un payment
+//         $invoiceCalculator= new InvoiceCalculator($invoice);
+//         if ($invoiceCalculator->getAmountDue()->getAmount() < $request->amount*Constante::MULTIPLY){
+//             session()->flash('flash_message_warning', ('You don\'t have enough money for this payment'));
+//             return redirect()->route('invoices.show', $invoice->external_id);
+//         }
 
         $payment = Payment::create([
             'external_id' => Uuid::uuid4()->toString(),
