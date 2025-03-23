@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 class Kernel extends HttpKernel
 {
@@ -48,6 +49,7 @@ class Kernel extends HttpKernel
         'filesystem.is.enabled' => [ \App\Http\Middleware\RedirectIfFileSystemIsNotEnabled::class],
         'is.demo' => [ \App\Http\Middleware\RedirectIfDemo::class],
         'api' => [
+            EnsureFrontendRequestsAreStateful::class,
             'auth:api',
             'throttle:60,1',
             'bindings',

@@ -33,16 +33,16 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', 'UsersController');
 
     /**
-    * Roles
-    */
+     * Roles
+     */
 
     Route::group(['prefix' => 'roles'], function () {
         Route::get('/data', 'RolesController@indexData')->name('roles.data');
         Route::patch('/update/{external_id}', 'RolesController@update');
     });
     Route::resource('roles', 'RolesController', ['except' => [
-            'update'
-        ]]);
+        'update'
+    ]]);
     /**
      * Clients
      */
@@ -188,7 +188,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/add-payment/{invoice}', 'PaymentsController@addPayment')->name('payment.add');
     });
 
-    /** 
+    /**
      * Offers
      */
     Route::group(['prefix' => 'offer'], function () {
@@ -229,7 +229,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::group(['prefix' => 'reset'], function () {
-        Route::get('/', 'ResetController@resetDatabase')->name('reset');
+    Route::get('/', 'ResetController@resetDatabase')->name('reset');
     });
 
     Route::get('/csv/import', 'CsvImportController@index')->name('csv.view');

@@ -25,15 +25,15 @@
         }
     </script>
     <?php if(isDemo()) { ?>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-152899919-3"></script>
-        <script>
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-152899919-3"></script>
+    <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
         gtag('config', 'UA-152899919-3');
-        </script>
+    </script>
     <?php } ?>
     <script src="https://js.stripe.com/v3/"></script>
     @stack('style')
@@ -42,23 +42,23 @@
 
 <div id="wrapper">
 
-@include('layouts._navbar')
-<!-- /#sidebar-wrapper -->
+    @include('layouts._navbar')
+    <!-- /#sidebar-wrapper -->
     <!-- Sidebar menu -->
 
     <nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-left offcanvas-sm" role="navigation">
         <div class="list-group panel">
-            <p class="list-group-item siderbar-top" title=""><img src="{{url('images/daybyday-logo-white.png')}}" alt="" style="width: 100%; margin: 1em 0;"></p>
-            <a href="{{route('dashboard')}}" class="list-group-item" data-parent="#MainMenu"><i
+            <p class=" list-group-item siderbar-top" title=""><img src="{{url('images/daybyday-logo-white.png')}}" alt="" style="width: 100%; margin: 1em 0;"></p>
+            <a href="{{route('dashboard')}}" class=" list-group-item" data-parent="#MainMenu"><i
                         class="fa fa-home sidebar-icon"></i><span id="menu-txt">{{ __('Dashboard') }} </span></a>
             <a href="{{route('reset')}}" class="list-group-item" data-parent="#MainMenu"><i
-            class="fa fa-refresh sidebar-icon"></i><span id="menu-txt">{{ __('Reset') }} </span></a>
-            <a href="{{route('users.show', \Auth::user()->external_id)}}" class="list-group-item"
+             class="fa fa-refresh sidebar-icon"></i><span id="menu-txt">{{ __('Reset') }} </span></a>
+            <a href="{{route('users.show', \Auth::user()->external_id)}}" class=" list-group-item"
                data-parent="#MainMenu"><i
                         class="fa fa-user sidebar-icon"></i><span id="menu-txt">{{ __('Profile') }}</span> </a>
-            <a href="#clients" class="list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
+            <a href="#clients" class=" list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
                         class="fa fa-user-secret sidebar-icon"></i><span id="menu-txt">{{ __('Clients') }}</span>
-                <i class="arrow-side icon ion-md-arrow-dropup sidebar-arrow"></i></a>
+                <i class="icon ion-md-arrow-dropup arrow-side sidebar-arrow"></i></a>
             <div class="collapse" id="clients">
 
                 <a href="{{ route('clients.index')}}" class="list-group-item childlist"> <i
@@ -70,8 +70,8 @@
                 @endif
             </div>
             <a href="#projects" class="list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
-                        class="fa fa-briefcase sidebar-icon"></i><span id="menu-txt">{{ __('Projects') }}</span>
-                <i class="arrow-side icon ion-md-arrow-dropup sidebar-arrow"></i></a>
+                        class="fa fa-briefcase sidebar-icon "></i><span id="menu-txt">{{ __('Projects') }}</span>
+                <i class="icon ion-md-arrow-dropup arrow-side sidebar-arrow"></i></a>
             <div class="collapse" id="projects">
                 <a href="{{ route('projects.index')}}" class="list-group-item childlist"> <i
                             class="bullet-point"><span></span></i> {{ __('All Projects') }}</a>
@@ -81,8 +81,8 @@
                 @endif
             </div>
             <a href="#tasks" class="list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
-                        class="fa fa-tasks sidebar-icon"></i><span id="menu-txt">{{ __('Tasks') }}</span>
-                <i class="arrow-side icon ion-md-arrow-dropup sidebar-arrow"></i></a>
+                        class="fa fa-tasks sidebar-icon "></i><span id="menu-txt">{{ __('Tasks') }}</span>
+                <i class="icon ion-md-arrow-dropup arrow-side sidebar-arrow"></i></a>
             <div class="collapse" id="tasks">
                 <a href="{{ route('tasks.index')}}" class="list-group-item childlist"> <i
                             class="bullet-point"><span></span></i> {{ __('All Tasks') }}</a>
@@ -92,9 +92,9 @@
                 @endif
             </div>
 
-            <a href="#user" class="list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
+            <a href="#user" class=" list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
                         class="fa fa-users sidebar-icon"></i><span id="menu-txt">{{ __('Users') }}</span>
-                <i class="arrow-side icon ion-md-arrow-dropup sidebar-arrow"></i></a>
+                <i class="icon ion-md-arrow-dropup arrow-side sidebar-arrow"></i></a>
             <div class="collapse" id="user">
                 <a href="{{ route('users.index')}}" class="list-group-item childlist"> <i
                             class="bullet-point"><span></span></i> {{ __('All Users') }}</a>
@@ -105,11 +105,11 @@
                 @endif
             </div>
 
-            <a href="#leads" class="list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
+            <a href="#leads" class=" list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
                         class="fa fa-hourglass-2 sidebar-icon"></i><span id="menu-txt">{{ __('Leads') }}</span>
-                <i class="arrow-side icon ion-md-arrow-dropup sidebar-arrow"></i></a>
+                <i class="icon ion-md-arrow-dropup arrow-side sidebar-arrow"></i></a>
             <div class="collapse" id="leads">
-            <a href="{{ route('leads.index')}}" class="list-group-item childlist"> <i
+                <a href="{{ route('leads.index')}}" class="list-group-item childlist"> <i
                             class="bullet-point"><span></span></i> {{ __('All Leads') }}</a>
                 @if(Entrust::can('lead-create'))
                     <a href="{{ route('leads.create')}}"
@@ -117,30 +117,30 @@
                     </a>
                 @endif
             </div>
-            <a href="#sales" class="list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
-                class="fa fa-dollar sidebar-icon"></i><span id="menu-txt">{{ __('Sales') }}</span>
-                <i class="arrow-side icon ion-md-arrow-dropup sidebar-arrow"></i></a>
+            <a href="#sales" class=" list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
+                        class="fa fa-dollar sidebar-icon"></i><span id="menu-txt">{{ __('Sales') }}</span>
+                <i class="icon ion-md-arrow-dropup arrow-side sidebar-arrow"></i></a>
             <div class="collapse" id="sales">
-            <a href="{{ route('invoices.overdue')}}" class="list-group-item childlist"> 
-                <i class="bullet-point"><span></span></i> {{ __('Overdue') }}
-            </a>
-            <a href="{{ route('products.index')}}" class="list-group-item childlist"> 
-                <i class="bullet-point"><span></span></i> {{ __('Products') }}
-            </a>
+                <a href="{{ route('invoices.overdue')}}" class="list-group-item childlist">
+                    <i class="bullet-point"><span></span></i> {{ __('Overdue') }}
+                </a>
+                <a href="{{ route('products.index')}}" class="list-group-item childlist">
+                    <i class="bullet-point"><span></span></i> {{ __('Products') }}
+                </a>
             </div>
             @if(Entrust::can('calendar-view'))
                 <a href="#appointments" class="list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
                             class="fa fa-calendar sidebar-icon"></i><span id="menu-txt">{{ __('Appointments') }}</span>
-                    <i class="arrow-side icon ion-md-arrow-dropup sidebar-arrow"></i></a>
+                    <i class="icon ion-md-arrow-dropup arrow-side sidebar-arrow"></i></a>
                 <div class="collapse" id="appointments">
                     <a href="{{ route('appointments.calendar')}}" target="_blank"
                        class="list-group-item childlist"> <i
                                 class="bullet-point"><span></span></i> {{ __('Calendar') }}</a>
                 </div>
             @endif
-            <a href="#hr" class="list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
+            <a href="#hr" class=" list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
                         class="fa fa-handshake-o sidebar-icon"></i><span id="menu-txt">{{ __('HR') }}</span>
-                <i class="arrow-side icon ion-md-arrow-dropup sidebar-arrow"></i></a>
+                <i class="icon ion-md-arrow-dropup arrow-side sidebar-arrow"></i></a>
             <div class="collapse" id="hr">
                 @if(Entrust::can('absence-view'))
                     <a href="{{ route('absence.index')}}"
@@ -158,9 +158,9 @@
             </div>
 
             @if(Entrust::hasRole('administrator') || Entrust::hasRole('owner'))
-                <a href="#settings" class="list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
+                <a href="#settings" class=" list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
                             class="fa fa-cog sidebar-icon"></i><span id="menu-txt">{{ __('Settings') }}</span>
-                    <i class="arrow-side icon ion-md-arrow-dropup sidebar-arrow"></i></a>
+                    <i class="icon ion-md-arrow-dropup arrow-side sidebar-arrow"></i></a>
                 <div class="collapse" id="settings">
                     <a href="{{ route('settings.index')}}"
                        class="list-group-item childlist"> <i
@@ -175,7 +175,7 @@
                 </div>
             @endif
 
-{{--ZO--}}
+            {{--ZO--}}
             @if(Entrust::hasRole('administrator') || Entrust::hasRole('owner'))
                 <a href="#data" class="list-group-item" data-toggle="collapse" data-parent="#MainMenu">
                     <i class="fa fa-upload sidebar-icon"></i>
@@ -222,11 +222,9 @@
 
     <!-- /#page-content-wrapper -->
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="/js/manifest.js"></script>
 <script src="/js/vendor.js"></script>
-<!-- <script type="text/javascript" src="{{ URL::asset('js/app.js') }}"></script> -->
+<script type="text/javascript" src="{{ URL::asset('js/app.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/dropzone.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/jquery.dataTables.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/jasny-bootstrap.min.js') }}"></script>
@@ -237,42 +235,41 @@
 <script type="text/javascript" src="{{ URL::asset('js/bootstrap-tour-standalone.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/picker.js') }}"></script>
 
-
 @if(App::getLocale() == "dk")
-<script>
-    $(document).ready(function () {
-        $.extend( $.fn.pickadate.defaults, {
-            monthsFull: [ 'januar', 'februar', 'marts', 'april', 'maj', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'december' ],
-            monthsShort: [ 'jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec' ],
-            weekdaysFull: [ 'søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag' ],
-            weekdaysShort: [ 'søn', 'man', 'tir', 'ons', 'tor', 'fre', 'lør' ],
-            today: 'i dag',
-            clear: 'slet',
-            close: 'luk',
-            firstDay: 1,
-            format: 'd. mmmm yyyy',
-            formatSubmit: 'yyyy/mm/dd'
+    <script>
+        $(document).ready(function () {
+            $.extend( $.fn.pickadate.defaults, {
+                monthsFull: [ 'januar', 'februar', 'marts', 'april', 'maj', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'december' ],
+                monthsShort: [ 'jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec' ],
+                weekdaysFull: [ 'søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag' ],
+                weekdaysShort: [ 'søn', 'man', 'tir', 'ons', 'tor', 'fre', 'lør' ],
+                today: 'i dag',
+                clear: 'slet',
+                close: 'luk',
+                firstDay: 1,
+                format: 'd. mmmm yyyy',
+                formatSubmit: 'yyyy/mm/dd'
+            });
         });
-    });
-</script>
+    </script>
 @endif
 @stack('scripts')
 <script>
     window.trans = <?php
-    // copy all translations from /resources/lang/CURRENT_LOCALE/* to global JS variable
-    try {
-        $filename = File::get(resource_path() . '/lang/' . App::getLocale() . '.json');
-    } catch (\Illuminate\Contracts\Filesystem\FileNotFoundException $e) {
-        return;
-    }
-    $trans = [];
-    $entries = json_decode($filename, true);
-    foreach ($entries as $k => $v) {
-        $trans[$k] = trans($v);
-    }
-    $trans[$filename] = trans($filename);
-    echo json_encode($trans);
-    ?>;
+                   // copy all translations from /resources/lang/CURRENT_LOCALE/* to global JS variable
+                   try {
+                       $filename = File::get(resource_path() . '/lang/' . App::getLocale() . '.json');
+                   } catch (\Illuminate\Contracts\Filesystem\FileNotFoundException $e) {
+                       return;
+                   }
+                   $trans = [];
+                   $entries = json_decode($filename, true);
+                   foreach ($entries as $k => $v) {
+                       $trans[$k] = trans($v);
+                   }
+                   $trans[$filename] = trans($filename);
+                   echo json_encode($trans);
+                   ?>;
 </script>
 </body>
 
