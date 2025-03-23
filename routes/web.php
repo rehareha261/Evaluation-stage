@@ -227,6 +227,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/', 'AbsenceController@store')->name('absence.store');
         Route::delete('/{absence}', 'AbsenceController@destroy')->name('absence.destroy');
     });
+
+    Route::group(['prefix' => 'reset'], function () {
+        Route::get('/', 'ResetController@resetDatabase')->name('reset');
+    });
+
+    Route::get('/csv/import', 'CsvImportController@index')->name('csv.view');
+    Route::post('/csv/import', 'CsvImportController@importUsers')->name('csv.process');
 });
 
 Route::group(['middleware' => ['auth']], function () {

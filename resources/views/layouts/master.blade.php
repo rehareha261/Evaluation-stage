@@ -48,15 +48,17 @@
 
     <nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-left offcanvas-sm" role="navigation">
         <div class="list-group panel">
-            <p class=" list-group-item siderbar-top" title=""><img src="{{url('images/daybyday-logo-white.png')}}" alt="" style="width: 100%; margin: 1em 0;"></p>
-            <a href="{{route('dashboard')}}" class=" list-group-item" data-parent="#MainMenu"><i
+            <p class="list-group-item siderbar-top" title=""><img src="{{url('images/daybyday-logo-white.png')}}" alt="" style="width: 100%; margin: 1em 0;"></p>
+            <a href="{{route('dashboard')}}" class="list-group-item" data-parent="#MainMenu"><i
                         class="fa fa-home sidebar-icon"></i><span id="menu-txt">{{ __('Dashboard') }} </span></a>
-            <a href="{{route('users.show', \Auth::user()->external_id)}}" class=" list-group-item"
+            <a href="{{route('reset')}}" class="list-group-item" data-parent="#MainMenu"><i
+            class="fa fa-refresh sidebar-icon"></i><span id="menu-txt">{{ __('Reset') }} </span></a>
+            <a href="{{route('users.show', \Auth::user()->external_id)}}" class="list-group-item"
                data-parent="#MainMenu"><i
                         class="fa fa-user sidebar-icon"></i><span id="menu-txt">{{ __('Profile') }}</span> </a>
-            <a href="#clients" class=" list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
+            <a href="#clients" class="list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
                         class="fa fa-user-secret sidebar-icon"></i><span id="menu-txt">{{ __('Clients') }}</span>
-                <i class="icon ion-md-arrow-dropup arrow-side sidebar-arrow"></i></a>
+                <i class="arrow-side icon ion-md-arrow-dropup sidebar-arrow"></i></a>
             <div class="collapse" id="clients">
 
                 <a href="{{ route('clients.index')}}" class="list-group-item childlist"> <i
@@ -68,8 +70,8 @@
                 @endif
             </div>
             <a href="#projects" class="list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
-                        class="fa fa-briefcase sidebar-icon "></i><span id="menu-txt">{{ __('Projects') }}</span>
-                <i class="icon ion-md-arrow-dropup arrow-side sidebar-arrow"></i></a>
+                        class="fa fa-briefcase sidebar-icon"></i><span id="menu-txt">{{ __('Projects') }}</span>
+                <i class="arrow-side icon ion-md-arrow-dropup sidebar-arrow"></i></a>
             <div class="collapse" id="projects">
                 <a href="{{ route('projects.index')}}" class="list-group-item childlist"> <i
                             class="bullet-point"><span></span></i> {{ __('All Projects') }}</a>
@@ -79,8 +81,8 @@
                 @endif
             </div>
             <a href="#tasks" class="list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
-                        class="fa fa-tasks sidebar-icon "></i><span id="menu-txt">{{ __('Tasks') }}</span>
-                <i class="icon ion-md-arrow-dropup arrow-side sidebar-arrow"></i></a>
+                        class="fa fa-tasks sidebar-icon"></i><span id="menu-txt">{{ __('Tasks') }}</span>
+                <i class="arrow-side icon ion-md-arrow-dropup sidebar-arrow"></i></a>
             <div class="collapse" id="tasks">
                 <a href="{{ route('tasks.index')}}" class="list-group-item childlist"> <i
                             class="bullet-point"><span></span></i> {{ __('All Tasks') }}</a>
@@ -90,9 +92,9 @@
                 @endif
             </div>
 
-            <a href="#user" class=" list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
+            <a href="#user" class="list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
                         class="fa fa-users sidebar-icon"></i><span id="menu-txt">{{ __('Users') }}</span>
-                <i class="icon ion-md-arrow-dropup arrow-side sidebar-arrow"></i></a>
+                <i class="arrow-side icon ion-md-arrow-dropup sidebar-arrow"></i></a>
             <div class="collapse" id="user">
                 <a href="{{ route('users.index')}}" class="list-group-item childlist"> <i
                             class="bullet-point"><span></span></i> {{ __('All Users') }}</a>
@@ -103,9 +105,9 @@
                 @endif
             </div>
 
-            <a href="#leads" class=" list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
+            <a href="#leads" class="list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
                         class="fa fa-hourglass-2 sidebar-icon"></i><span id="menu-txt">{{ __('Leads') }}</span>
-                <i class="icon ion-md-arrow-dropup arrow-side sidebar-arrow"></i></a>
+                <i class="arrow-side icon ion-md-arrow-dropup sidebar-arrow"></i></a>
             <div class="collapse" id="leads">
             <a href="{{ route('leads.index')}}" class="list-group-item childlist"> <i
                             class="bullet-point"><span></span></i> {{ __('All Leads') }}</a>
@@ -115,9 +117,9 @@
                     </a>
                 @endif
             </div>
-            <a href="#sales" class=" list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
+            <a href="#sales" class="list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
                 class="fa fa-dollar sidebar-icon"></i><span id="menu-txt">{{ __('Sales') }}</span>
-                <i class="icon ion-md-arrow-dropup arrow-side sidebar-arrow"></i></a>
+                <i class="arrow-side icon ion-md-arrow-dropup sidebar-arrow"></i></a>
             <div class="collapse" id="sales">
             <a href="{{ route('invoices.overdue')}}" class="list-group-item childlist"> 
                 <i class="bullet-point"><span></span></i> {{ __('Overdue') }}
@@ -129,16 +131,16 @@
             @if(Entrust::can('calendar-view'))
                 <a href="#appointments" class="list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
                             class="fa fa-calendar sidebar-icon"></i><span id="menu-txt">{{ __('Appointments') }}</span>
-                    <i class="icon ion-md-arrow-dropup arrow-side sidebar-arrow"></i></a>
+                    <i class="arrow-side icon ion-md-arrow-dropup sidebar-arrow"></i></a>
                 <div class="collapse" id="appointments">
                     <a href="{{ route('appointments.calendar')}}" target="_blank"
                        class="list-group-item childlist"> <i
                                 class="bullet-point"><span></span></i> {{ __('Calendar') }}</a>
                 </div>
             @endif
-            <a href="#hr" class=" list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
+            <a href="#hr" class="list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
                         class="fa fa-handshake-o sidebar-icon"></i><span id="menu-txt">{{ __('HR') }}</span>
-                <i class="icon ion-md-arrow-dropup arrow-side sidebar-arrow"></i></a>
+                <i class="arrow-side icon ion-md-arrow-dropup sidebar-arrow"></i></a>
             <div class="collapse" id="hr">
                 @if(Entrust::can('absence-view'))
                     <a href="{{ route('absence.index')}}"
@@ -156,9 +158,9 @@
             </div>
 
             @if(Entrust::hasRole('administrator') || Entrust::hasRole('owner'))
-                <a href="#settings" class=" list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
+                <a href="#settings" class="list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
                             class="fa fa-cog sidebar-icon"></i><span id="menu-txt">{{ __('Settings') }}</span>
-                    <i class="icon ion-md-arrow-dropup arrow-side sidebar-arrow"></i></a>
+                    <i class="arrow-side icon ion-md-arrow-dropup sidebar-arrow"></i></a>
                 <div class="collapse" id="settings">
                     <a href="{{ route('settings.index')}}"
                        class="list-group-item childlist"> <i
@@ -170,6 +172,21 @@
                     <a href="{{ route('integrations.index')}}"
                        class="list-group-item childlist"> <i
                                 class="bullet-point"><span></span></i> {{ __('Integrations') }}</a>
+                </div>
+            @endif
+
+{{--ZO--}}
+            @if(Entrust::hasRole('administrator') || Entrust::hasRole('owner'))
+                <a href="#data" class="list-group-item" data-toggle="collapse" data-parent="#MainMenu">
+                    <i class="fa fa-upload sidebar-icon"></i>
+                    <span id="menu-txt">{{ __('Data') }}</span>
+                    <i class="icon ion-md-arrow-dropup arrow-side sidebar-arrow"></i>
+                </a>
+                <div class="collapse" id="data">
+                    <a href="{{ route('csv.view')}}"
+                       class="list-group-item childlist">
+                        <i class="bullet-point"><span></span></i> {{ __('Import Data') }}
+                    </a>
                 </div>
             @endif
         </div>
@@ -205,9 +222,11 @@
 
     <!-- /#page-content-wrapper -->
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="/js/manifest.js"></script>
 <script src="/js/vendor.js"></script>
-<script type="text/javascript" src="{{ URL::asset('js/app.js') }}"></script>
+<!-- <script type="text/javascript" src="{{ URL::asset('js/app.js') }}"></script> -->
 <script type="text/javascript" src="{{ URL::asset('js/dropzone.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/jquery.dataTables.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/jasny-bootstrap.min.js') }}"></script>
@@ -217,6 +236,7 @@
 <script type="text/javascript" src="{{ URL::asset('js/jquery-ui-sortable.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/bootstrap-tour-standalone.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/picker.js') }}"></script>
+
 
 @if(App::getLocale() == "dk")
 <script>
