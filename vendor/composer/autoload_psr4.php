@@ -72,6 +72,7 @@ return array(
     'League\\CommonMark\\' => array($vendorDir . '/league/commonmark/src'),
     'Laravel\\Ui\\' => array($vendorDir . '/laravel/ui/src'),
     'Laravel\\Tinker\\' => array($vendorDir . '/laravel/tinker/src'),
+    'Laravel\\Sanctum\\' => array($vendorDir . '/laravel/sanctum/src'),
     'Laravel\\Dusk\\' => array($vendorDir . '/laravel/dusk/src'),
     'Laravel\\Cashier\\' => array($vendorDir . '/laravel/cashier/src'),
     'JmesPath\\' => array($vendorDir . '/mtdowling/jmespath.php/src'),
