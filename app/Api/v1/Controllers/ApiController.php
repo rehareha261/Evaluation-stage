@@ -38,7 +38,7 @@ class ApiController extends Controller
      */
     protected function respondCreated($data)
     {
-        return $this->respond($data, 201);
+        return $this->respond(["status" => 201, "data" => $data], 201);
     }
 
     /**

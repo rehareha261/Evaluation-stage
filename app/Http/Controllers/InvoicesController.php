@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use View;
 use App\Billy;
+use App\Constante\Constante;
 use Datatables;
 use Carbon\Carbon;
 use App\Models\Lead;
@@ -165,7 +166,7 @@ class InvoicesController extends Controller
                 'comment' => $request->comment,
                 'quantity' => $request->quantity,
                 'type' => $request->type,
-                'price' => $request->price * 100,
+                'price' => $request->price * Constante::COEFFICIENT * (1 - $invoice->remise / 100),
                 'invoice_id' => $invoice->id,
                 'product_id' => $product
             ]);

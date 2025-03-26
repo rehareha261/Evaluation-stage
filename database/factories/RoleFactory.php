@@ -11,6 +11,5 @@ $factory->define(Role::class, function (Faker $faker) {
         'external_id' => $faker->uuid,
         'display_name' => 'Factory Role',
         'description' => 'Mock role',
-
     ];
 });

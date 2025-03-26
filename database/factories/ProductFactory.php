@@ -12,7 +12,7 @@ $factory->define(Product::class, function (Faker $faker) {
         'external_id' => $faker->uuid,
         'description' => $faker->text(),
         'number' => Uuid::uuid1()->toString(),
-        'price' => $faker->numberBetween(1000,10000),
+        'price' => $faker->numberBetween(100,10000),
         'default_type' => 'hours',
         'archived' => false,
     ];

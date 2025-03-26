@@ -1,0 +1,129 @@
+<?php
+
+namespace App\Api\v1\Services\Invoices;
+
+use App\Enums\InvoiceStatus;
+use App\Models\Invoice;
+use App\Models\InvoiceLine;
+use Illuminate\Support\Facades\DB;
+
+class InvoiceService{
+
+    public function getCountInvoiceSent(){
+        return Invoice::all()->count();
+    }    
+
+    // public function getInvoiceSent(){
+    //     return Invoice::whereNotNull("sent_at");
+    // }
+
+    //mysql> select invoices.*, SUM(invoice_lines.price) from invoices join invoice_lines on invoice_lines.invoice_id=invoices.id where invoices.sent_at IS NOT NULL AND invoice_lines.offer_id IS NULL AND invoice_lines.deleted_at IS NULL GROUP BY invoices.id;
+    public function getInvoicesDetailMontant(){
+        return Invoice::with('client', 'source')
+        ->join('invoice_lines', 'invoice_lines.invoice_id', '=', 'invoices.id')
+        ->whereNull('invoice_lines.deleted_at')
+        ->groupBy('invoices.id', 'invoices.client_id')
+        ->selectRaw('invoices.id, invoices.client_id, SUM(invoice_lines.price * invoice_lines.quantity) as total_price')
+        ->get();
+    }
+
+
+    // \DB::raw() permet d'injecter une expression SQL brute, nécessaire pour effectuer une opération mathématique.
+    // public function getTotalPriceInvoices(){
+    //     return InvoiceLine::selectRaw('SUM(price * quantity) as total_price')->value('total_price');
+    // }
+
+    public function getTotalPriceInvoices(){
+        return InvoiceLine::whereNotNull("invoice_id")->sum(DB::raw("price * quantity"));
+    }
+
+    public function getInvoicesByStatus($status){
+        $result = Invoice::with('client')->where('status', '=', $status)->get();
+        return $result;
+    }
+
+    public function getInvoices(){
+        $draft = Invoice::where('status', '=', InvoiceStatus::draft());
+        $closed = Invoice::where('status', '=', InvoiceStatus::closed());
+        $sent = Invoice::where('status', '=', InvoiceStatus::sent());
+        $unpaid = Invoice::where('status', '=', InvoiceStatus::unpaid());
+        $partialPaid = Invoice::where('status', '=', InvoiceStatus::partialPaid());
+        $paid = Invoice::where('status', '=', InvoiceStatus::paid());
+        $overpaid = Invoice::where('status', '=', InvoiceStatus::overpaid());
+
+        return ["draft" => $draft, "closed" => $closed, "sent" => $sent, "unpaid" => $unpaid, "partialPaid" => $partialPaid, "paid" => $paid, "overPaid" => $overpaid];
+    }
+
+
+
+    // public function getInvoicesDetailMontant(){
+    //     return Invoice::with('client', 'source')
+    //         ->join('invoice_lines', 'invoice_lines.invoice_id', '=', 'invoices.id')
+    //         ->whereNull('invoice_lines.deleted_at')
+    //         ->groupBy('invoices.id', 'invoices.client_id')
+    //         ->selectRaw('invoices.id, invoices.client_id, SUM(invoice_lines.price * invoice_lines.quantity) as total_price')
+    //         ->get();
+    // }
+}
+
+
+?>
+
+
+
+package com.itu.evaluation.service;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.itu.evaluation.Util.ApiResponse;
+import com.itu.evaluation.Util.HeaderGen;
+import com.itu.evaluation.constante.ApiUrl;
+import com.itu.evaluation.dto.Offer;
+import com.itu.evaluation.dto.Offers;
+
+import jakarta.servlet.http.HttpSession;
+
+@Service
+public class OfferService {
+    private final RestTemplate restTemplate;
+    private final HeaderGen headerGen;
+    private final HttpSession session;
+
+    @Autowired
+    public OfferService(RestTemplate restTemplate, HeaderGen headerGen, HttpSession session){
+        this.restTemplate = restTemplate;
+        this.headerGen = headerGen;
+        this.session = session;
+    }
+
+    public List<Offer> getOffers() throws Exception {
+        String url = ApiUrl.OFFERS_API_URL + "/details";
+
+        ResponseEntity<ApiResponse<List<Offer>>> response = restTemplate.exchange(
+            url, HttpMethod.GET, 
+            new HttpEntity<>(this.headerGen.generateHeader(this.session)), 
+            new ParameterizedTypeReference<ApiResponse<List<Offer>>>() {}
+        );
+
+        return response.getBody() != null ? response.getBody().getData().get("offers") : null;
+    }
+
+    public Integer getCountOffers()throws Exception{
+        String url = ApiUrl.OFFERS_API_URL +"/count";
+
+        ResponseEntity<ApiResponse<Integer>> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(this.headerGen.generateHeader(this.session)), new ParameterizedTypeReference<ApiResponse<Integer>>() {});
+
+        return response.getBody() != null ? response.getBody().getData().get("count") : null;
+    }
+
+
+}

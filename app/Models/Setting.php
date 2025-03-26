@@ -13,6 +13,7 @@ class Setting extends Model
         'currency',
         'vat',
         'language',
+        'remise'
     ];
 
     public function user()

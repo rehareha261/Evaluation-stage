@@ -35,6 +35,7 @@ class Invoice extends Model
         'source_type',
         'external_id',
         'offer_id',
+        'remise'
     ];
 
     protected $dates = [
