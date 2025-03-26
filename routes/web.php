@@ -33,16 +33,16 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', 'UsersController');
 
     /**
-    * Roles
-    */
+     * Roles
+     */
 
     Route::group(['prefix' => 'roles'], function () {
         Route::get('/data', 'RolesController@indexData')->name('roles.data');
         Route::patch('/update/{external_id}', 'RolesController@update');
     });
     Route::resource('roles', 'RolesController', ['except' => [
-            'update'
-        ]]);
+        'update'
+    ]]);
     /**
      * Clients
      */
@@ -188,7 +188,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/add-payment/{invoice}', 'PaymentsController@addPayment')->name('payment.add');
     });
 
-    /** 
+    /**
      * Offers
      */
     Route::group(['prefix' => 'offer'], function () {
@@ -227,6 +227,16 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/', 'AbsenceController@store')->name('absence.store');
         Route::delete('/{absence}', 'AbsenceController@destroy')->name('absence.destroy');
     });
+
+    Route::group(['prefix' => 'reset'], function () {
+    Route::get('/', 'ResetController@resetDatabase')->name('reset');
+    });
+
+    Route::get('/csv/import', 'ImportCsvController@index')->name('csv.view');
+    Route::post('/csv/import', 'ImportCsvController@importData')->name('csv.process');
+
+//    Route::get('/gen/generator', 'DataGenerationController@index')->name('');
+    Route::get('/gen/generator', 'DataGenerationController@generateData');
 });
 
 Route::group(['middleware' => ['auth']], function () {

@@ -11,6 +11,6 @@ $factory->define(Setting::class, function (Faker $faker) {
         'invoice_number' => 10000,
         'company' => "test company",
         'max_users' => 10,
-
+        'remise' => 10,
     ];
 });

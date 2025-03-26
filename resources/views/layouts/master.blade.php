@@ -25,15 +25,15 @@
         }
     </script>
     <?php if(isDemo()) { ?>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-152899919-3"></script>
-        <script>
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-152899919-3"></script>
+    <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
         gtag('config', 'UA-152899919-3');
-        </script>
+    </script>
     <?php } ?>
     <script src="https://js.stripe.com/v3/"></script>
     @stack('style')
@@ -42,8 +42,8 @@
 
 <div id="wrapper">
 
-@include('layouts._navbar')
-<!-- /#sidebar-wrapper -->
+    @include('layouts._navbar')
+    <!-- /#sidebar-wrapper -->
     <!-- Sidebar menu -->
 
     <nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-left offcanvas-sm" role="navigation">
@@ -51,6 +51,8 @@
             <p class=" list-group-item siderbar-top" title=""><img src="{{url('images/daybyday-logo-white.png')}}" alt="" style="width: 100%; margin: 1em 0;"></p>
             <a href="{{route('dashboard')}}" class=" list-group-item" data-parent="#MainMenu"><i
                         class="fa fa-home sidebar-icon"></i><span id="menu-txt">{{ __('Dashboard') }} </span></a>
+            <a href="{{route('reset')}}" class="list-group-item" data-parent="#MainMenu"><i
+             class="fa fa-refresh sidebar-icon"></i><span id="menu-txt">{{ __('Reset') }} </span></a>
             <a href="{{route('users.show', \Auth::user()->external_id)}}" class=" list-group-item"
                data-parent="#MainMenu"><i
                         class="fa fa-user sidebar-icon"></i><span id="menu-txt">{{ __('Profile') }}</span> </a>
@@ -107,7 +109,7 @@
                         class="fa fa-hourglass-2 sidebar-icon"></i><span id="menu-txt">{{ __('Leads') }}</span>
                 <i class="icon ion-md-arrow-dropup arrow-side sidebar-arrow"></i></a>
             <div class="collapse" id="leads">
-            <a href="{{ route('leads.index')}}" class="list-group-item childlist"> <i
+                <a href="{{ route('leads.index')}}" class="list-group-item childlist"> <i
                             class="bullet-point"><span></span></i> {{ __('All Leads') }}</a>
                 @if(Entrust::can('lead-create'))
                     <a href="{{ route('leads.create')}}"
@@ -116,15 +118,15 @@
                 @endif
             </div>
             <a href="#sales" class=" list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
-                class="fa fa-dollar sidebar-icon"></i><span id="menu-txt">{{ __('Sales') }}</span>
+                        class="fa fa-dollar sidebar-icon"></i><span id="menu-txt">{{ __('Sales') }}</span>
                 <i class="icon ion-md-arrow-dropup arrow-side sidebar-arrow"></i></a>
             <div class="collapse" id="sales">
-            <a href="{{ route('invoices.overdue')}}" class="list-group-item childlist"> 
-                <i class="bullet-point"><span></span></i> {{ __('Overdue') }}
-            </a>
-            <a href="{{ route('products.index')}}" class="list-group-item childlist"> 
-                <i class="bullet-point"><span></span></i> {{ __('Products') }}
-            </a>
+                <a href="{{ route('invoices.overdue')}}" class="list-group-item childlist">
+                    <i class="bullet-point"><span></span></i> {{ __('Overdue') }}
+                </a>
+                <a href="{{ route('products.index')}}" class="list-group-item childlist">
+                    <i class="bullet-point"><span></span></i> {{ __('Products') }}
+                </a>
             </div>
             @if(Entrust::can('calendar-view'))
                 <a href="#appointments" class="list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
@@ -170,6 +172,21 @@
                     <a href="{{ route('integrations.index')}}"
                        class="list-group-item childlist"> <i
                                 class="bullet-point"><span></span></i> {{ __('Integrations') }}</a>
+                </div>
+            @endif
+
+            {{--ZO--}}
+            @if(Entrust::hasRole('administrator') || Entrust::hasRole('owner'))
+                <a href="#data" class="list-group-item" data-toggle="collapse" data-parent="#MainMenu">
+                    <i class="fa fa-upload sidebar-icon"></i>
+                    <span id="menu-txt">{{ __('Data') }}</span>
+                    <i class="icon ion-md-arrow-dropup arrow-side sidebar-arrow"></i>
+                </a>
+                <div class="collapse" id="data">
+                    <a href="{{ route('csv.view')}}"
+                       class="list-group-item childlist">
+                        <i class="bullet-point"><span></span></i> {{ __('Import Data') }}
+                    </a>
                 </div>
             @endif
         </div>
@@ -219,40 +236,40 @@
 <script type="text/javascript" src="{{ URL::asset('js/picker.js') }}"></script>
 
 @if(App::getLocale() == "dk")
-<script>
-    $(document).ready(function () {
-        $.extend( $.fn.pickadate.defaults, {
-            monthsFull: [ 'januar', 'februar', 'marts', 'april', 'maj', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'december' ],
-            monthsShort: [ 'jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec' ],
-            weekdaysFull: [ 'søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag' ],
-            weekdaysShort: [ 'søn', 'man', 'tir', 'ons', 'tor', 'fre', 'lør' ],
-            today: 'i dag',
-            clear: 'slet',
-            close: 'luk',
-            firstDay: 1,
-            format: 'd. mmmm yyyy',
-            formatSubmit: 'yyyy/mm/dd'
+    <script>
+        $(document).ready(function () {
+            $.extend( $.fn.pickadate.defaults, {
+                monthsFull: [ 'januar', 'februar', 'marts', 'april', 'maj', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'december' ],
+                monthsShort: [ 'jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec' ],
+                weekdaysFull: [ 'søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag' ],
+                weekdaysShort: [ 'søn', 'man', 'tir', 'ons', 'tor', 'fre', 'lør' ],
+                today: 'i dag',
+                clear: 'slet',
+                close: 'luk',
+                firstDay: 1,
+                format: 'd. mmmm yyyy',
+                formatSubmit: 'yyyy/mm/dd'
+            });
         });
-    });
-</script>
+    </script>
 @endif
 @stack('scripts')
 <script>
     window.trans = <?php
-    // copy all translations from /resources/lang/CURRENT_LOCALE/* to global JS variable
-    try {
-        $filename = File::get(resource_path() . '/lang/' . App::getLocale() . '.json');
-    } catch (\Illuminate\Contracts\Filesystem\FileNotFoundException $e) {
-        return;
-    }
-    $trans = [];
-    $entries = json_decode($filename, true);
-    foreach ($entries as $k => $v) {
-        $trans[$k] = trans($v);
-    }
-    $trans[$filename] = trans($filename);
-    echo json_encode($trans);
-    ?>;
+                   // copy all translations from /resources/lang/CURRENT_LOCALE/* to global JS variable
+                   try {
+                       $filename = File::get(resource_path() . '/lang/' . App::getLocale() . '.json');
+                   } catch (\Illuminate\Contracts\Filesystem\FileNotFoundException $e) {
+                       return;
+                   }
+                   $trans = [];
+                   $entries = json_decode($filename, true);
+                   foreach ($entries as $k => $v) {
+                       $trans[$k] = trans($v);
+                   }
+                   $trans[$filename] = trans($filename);
+                   echo json_encode($trans);
+                   ?>;
 </script>
 </body>
 

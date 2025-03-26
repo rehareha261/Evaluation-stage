@@ -11,7 +11,8 @@ class Comment extends Model
     protected $fillable = [
         'description',
         'task_id',
-        'user_id'
+        'user_id',
+        'test'
     ];
     protected $hidden = ['remember_token'];
 
