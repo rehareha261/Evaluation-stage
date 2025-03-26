@@ -2,16 +2,18 @@
 
 namespace App\Services\Csv;
 
+use App\Services\Exception\ImportException;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use ReflectionClass;
 use ReflectionProperty;
 
-class CsvService
+class ImportService
 {
     
-    public function importCsv(string $filePath, string $className): Collection
+    public function importCsv(string $filePath, string $className, string $filename): Collection
     {
         if (!file_exists($filePath)) {
             throw new \Exception("File not found: {$filePath}");
@@ -31,26 +33,43 @@ class CsvService
 
         $results = collect();
         $reflection = new ReflectionClass($className);
+        $count = 2;        
         
-        
+        $error = [];
+
         while (($row = fgetcsv($handle)) !== false) {
             $data = array_combine($headers, $row);
             $instance = new $className();
             
+
             foreach ($data as $property => $value) {
-                if ($reflection->hasProperty($property)) {
-                    $reflectionProperty = $reflection->getProperty($property);
-                    $reflectionProperty->setAccessible(true);
-                    
-                    $parsedValue = $this->parseValue($reflectionProperty, $value);
-                    $reflectionProperty->setValue($instance, $parsedValue);
+                $setterMethod = 'set' . ucfirst($property);
+            
+                try {
+                    if (method_exists($instance, $setterMethod)) {
+                        $instance->$setterMethod($value);
+                    } 
+                    // else if ($reflection->hasProperty($property)) {
+                    //     $reflectionProperty = $reflection->getProperty($property);
+                    //     $reflectionProperty->setAccessible(true);
+                    //     $parsedValue = $this->parseValue($reflectionProperty, $value);
+                    //     $reflectionProperty->setValue($instance, $parsedValue);
+                    // }
+                } catch (Exception $e) {
+                    $error[] = $filename." ligne ".$count." : ".$e->getMessage();
                 }
             }
             
+            
             $results->push($instance);
+            $count++;
         }
         
         fclose($handle);
+        if(count($error) > 0){
+            throw new ImportException("", $error);
+        }
+
         return $results;
     }
     
@@ -121,3 +140,4 @@ class CsvService
         return 'string'; 
     }
 }
+?>

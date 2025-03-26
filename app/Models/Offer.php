@@ -35,6 +35,10 @@ class Offer extends Model
         return $this->hasOne(Invoice::class);
     }
 
+    public function client(){
+        return $this->belongsTo(Client::class);
+    }
+
     public function setAsWon()
     {
         $this->status = OfferStatus::won()->getStatus();

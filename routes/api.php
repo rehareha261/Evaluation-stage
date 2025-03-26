@@ -1,10 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthApiController;
 use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,32 +13,50 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route de connexion pour obtenir un token
-Route::post('/login', function (Request $request) {
-    // Recherche de l'utilisateur par email
-    $user = User::where('email', $request->email)->first();
+Route::post('/login', [AuthApiController::class, 'login']);
 
-    // Vérification de la validité du mot de passe
-    if (!$user || !Hash::check($request->password, $user->password)) {
-        return response()->json(['message' => 'Identifiants invalides'], 401);
-    }
-
-    // Création du token
-    $token = $user->createToken('NewAppToken')->plainTextToken;
-
-    return response()->json(['token' => $token]);
-});
-
-// Route sécurisée qui retourne les informations de l'utilisateur connecté
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-// Routes protégées par authentification avec Sanctum
 Route::group(['namespace' => 'App\Api\v1\Controllers'], function () {
-    Route::group(['middleware' => 'auth:sanctum'], function () {
-        // Par exemple, route pour obtenir la liste des utilisateurs
+    Route::group(['middleware' => 'auth:api'], function () {
         Route::get('users', ['uses' => 'UserController@index']);
     });
 });
 
+
+// Invoices routes
+Route::group(['namespace' => 'App\Api\v1\Controllers\Invoices'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('invoices/count', ['uses' => 'InvoicesController@getCountInvoice']);
+        Route::get('invoices/total-price', ['uses' => 'InvoicesController@getTotalPriceInvoices']);
+        Route::get('invoices', ['uses' => 'InvoicesController@getInvoices']);
+        Route::get('invoices/details', ['uses' => 'InvoicesController@getInvoicesWithTotal']);
+        Route::put('invoices/remise', ['uses' => 'IfnvoicesController@setRemise']);
+    });
+});
+
+// Offers routes
+Route::group(['namespace' => 'App\Api\v1\Controllers\Offers'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('offers/count', ['uses' => 'OffersController@getCountOffers']);
+        Route::get('offers/details', ['uses' => 'OffersController@getOffers']);
+    });
+});
+
+// Payments routes
+Route::group(['namespace' => 'App\Api\v1\Controllers\Payments'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('payments/total-price', ['uses' => 'PaymentsController@getTotalPricePayments']);
+        Route::get('payments', ['uses' => 'PaymentsController@getPayments']);
+        Route::put('payments/{externalID}/update', ['uses' => 'PaymentsController@updatePayment']);
+        Route::delete('payments/{externalID}/delete', ['uses' => 'PaymentsController@cancelPayment']);
+    });
+});
+
+
+// Dashboard routes
+Route::group(['namespace' => 'App\Api\v1\Controllers\Dashboard'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('dashboard/mensuelle', ['uses' => 'DashboardController@getDataMensuelle']);
+        Route::get('dashboard/payment/repartition', ['uses' => 'DashboardController@getPaymentRepartition']);
+        Route::get('dashboard/chiffre-affaire/evolution', ['uses' => 'DashboardController@getEvolutionCA']);
+    });
+});

@@ -19,31 +19,51 @@
 
     @if(session('error'))
         <div class="alert alert-danger">
-            <i class="icon fa fa-ban"></i> {{ session('error') }}
+            {!! nl2br(e(session('error'))) !!}
         </div>
     @endif
 
     <!-- Import form box -->
-    <div class="row">
-        <div class="col-lg-6">
+    <div class="row" style="display: flex; justify-content: center; align-items: center; height: 500px;">
+        <div class="col-lg-5">
             <!-- small box -->
             <div class="small-box bg-white">
                 <div class="inner" style="min-height: 120px">
-                    <h3>{{ __('Import CSV') }}</h3>
-                    <p>{{ __('Upload a CSV file to import data') }}</p>
-                    
+                    <h3 style="text-align: center">{{ __('Importation donnee') }}</h3>
+                    <p>{{ __('Importation des donnees fichier csv') }}</p>
+
                     <form action="{{ route('csv.process') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="csv_file" name="csv_file" accept=".csv">
-                                <label class="custom-file-label" for="csv_file">{{ __('Choose file') }}</label>
+                                <input required type="file" class="custom-file-input form-control" id="csv_project" name="csv_project" accept=".csv">
+                                <label class="custom-file-label" for="csv_project">{{ __('Choose project file') }}</label>
                             </div>
                             @error('csv_file')
-                                <span class="text-danger">{{ $message }}</span>
+                            <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <button type="submit" class="btn btn-primary">
+                        @csrf
+                        <div class="form-group">
+                            <div class="custom-file">
+                                <input required type="file" class="custom-file-input form-control" id="csv_task" name="csv_task" accept=".csv">
+                                <label class="custom-file-label" for="csv_task">{{ __('Choose tasks file') }}</label>
+                            </div>
+                            @error('csv_task')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        @csrf
+                        <div class="form-group">
+                            <div class="custom-file">
+                                <input required type="file" class="custom-file-input form-control" id="csv_invoice" name="csv_invoice" accept=".csv">
+                                <label class="custom-file-label" for="csv_invoice">{{ __('Choose invoice file') }}</label>
+                            </div>
+                            @error('csv_invoice')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-primary form-control">
                             <i class="fa fa-upload"></i> {{ __('Import') }}
                         </button>
                     </form>
@@ -57,7 +77,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Help Modal -->
     <div class="modal fade" id="csv-help-modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -79,7 +99,7 @@
                         <li>{{ __('Boolean values: true/false, yes/no, 1/0') }}</li>
                         <li>{{ __('Lists/Arrays: comma-separated values (e.g., item1,item2,item3)') }}</li>
                     </ul>
-                    
+
                     <h4>{{ __('Common Issues') }}</h4>
                     <ul>
                         <li>{{ __('Make sure your CSV is properly formatted and uses commas as separators') }}</li>
@@ -94,32 +114,32 @@
             </div>
         </div>
     </div>
-    
-    @push('scripts')
-    <script>
-        $(document).ready(function () {
-            $('[data-toggle="tooltip"]').tooltip(); //Tooltip on icons top
 
-            $('.popoverOption').each(function () {
-                var $this = $(this);
-                $this.popover({
-                    trigger: 'hover',
-                    placement: 'left',
-                    container: $this,
-                    html: true,
+    @push('scripts')
+        <script>
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip(); //Tooltip on icons top
+
+                $('.popoverOption').each(function () {
+                    var $this = $(this);
+                    $this.popover({
+                        trigger: 'hover',
+                        placement: 'left',
+                        container: $this,
+                        html: true,
+                    });
+                });
+
+                // Update file input label when file is selected
+                $('#csv_file').change(function() {
+                    var fileName = $(this).val().split('\\').pop();
+                    if (fileName) {
+                        $('.custom-file-label').text(fileName);
+                    } else {
+                        $('.custom-file-label').text('{{ __("Choose file") }}');
+                    }
                 });
             });
-            
-            // Update file input label when file is selected
-            $('#csv_file').change(function() {
-                var fileName = $(this).val().split('\\').pop();
-                if (fileName) {
-                    $('.custom-file-label').text(fileName);
-                } else {
-                    $('.custom-file-label').text('{{ __("Choose file") }}');
-                }
-            });
-        });
-    </script>
+        </script>
     @endpush
 @endsection

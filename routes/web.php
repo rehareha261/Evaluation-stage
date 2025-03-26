@@ -232,8 +232,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/', 'ResetController@resetDatabase')->name('reset');
     });
 
-    Route::get('/csv/import', 'CsvImportController@index')->name('csv.view');
-    Route::post('/csv/import', 'CsvImportController@importUsers')->name('csv.process');
+    Route::get('/csv/import', 'ImportCsvController@index')->name('csv.view');
+    Route::post('/csv/import', 'ImportCsvController@importData')->name('csv.process');
+
+//    Route::get('/gen/generator', 'DataGenerationController@index')->name('');
+    Route::get('/gen/generator', 'DataGenerationController@generateData');
 });
 
 Route::group(['middleware' => ['auth']], function () {

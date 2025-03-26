@@ -50,7 +50,7 @@ class Kernel extends HttpKernel
         'is.demo' => [ \App\Http\Middleware\RedirectIfDemo::class],
         'api' => [
             EnsureFrontendRequestsAreStateful::class,
-            'auth:api',
+            // 'auth:api',
             'throttle:60,1',
             'bindings',
 

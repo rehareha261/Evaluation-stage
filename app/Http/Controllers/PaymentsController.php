@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constante\Constante;
 use App\Http\Requests\Payment\PaymentRequest;
 use App\Models\Integration;
 use App\Models\Invoice;
@@ -55,16 +56,16 @@ class PaymentsController extends Controller
             return redirect()->route('invoices.show', $invoice->external_id);
         }
 
-// //        Afficher message d’erreur si paiement  est supérieur lors de la saisie d’un payment
-        $invoiceCalculator= new InvoiceCalculator($invoice);
-        if ($invoiceCalculator->getAmountDue()->getAmount() < $request->amount*Constante::MULTIPLY){
-            session()->flash('flash_message_warning', ('You don\'t have enough money for this payment'));
+        //verification prix
+        $invoiceCalculator = new InvoiceCalculator($invoice);
+        if($invoiceCalculator->getAmountDue()->getAmount() < $request->amount * Constante::COEFFICIENT){
+            session()->flash('flash_message_warning', __("Le montant du paiement est superieur au montant restant"));
             return redirect()->route('invoices.show', $invoice->external_id);
         }
 
         $payment = Payment::create([
             'external_id' => Uuid::uuid4()->toString(),
-            'amount' => $request->amount * 100,
+            'amount' => $request->amount * Constante::COEFFICIENT,
             'payment_date' => Carbon::parse($request->payment_date),
             'payment_source' => $request->source,
             'description' => $request->description,

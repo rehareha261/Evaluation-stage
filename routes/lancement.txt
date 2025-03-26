@@ -1,0 +1,29 @@
+docker-compose up -d --build
+docker-compose exec php composer install 
+docker-compose exec php php artisan migrate --seed
+docker-compose exec --user root php bash 
+apt-get update && apt-get install -y npm
+npm -v 
+docker-compose exec php npm install 
+docker-compose exec php npm run dev 
+
+
+cache : 
+php artisan route:clear
+php artisan cache:clear
+php artisan config:clear
+composer dump-autoload
+
+
+Dummy data : 
+php artisan migrate:fresh --seed && php artisan db:seed --class=DummyDatabaseSeeder
+
+
+
+php artisan make:migration addremiseinvoicestosettingstable --table=settings
+php artisan make:migration addremiseinvoicetoinvoicestable --table=invoices
+
+php artisan make:migration testmigrationqqq --table=comments
+
+
+php artisan migrate 
